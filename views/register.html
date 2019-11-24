@@ -1,33 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <lnk rel="styleshhet" href="./css/main.css" />
     <title>Register page</title>
 </head>
+
 <body>
-    <h1>Register page!</h1>
-    <form method="POST" action="/register">
-        <div class="form-group">
-            <label for="login">Login</label>
-            <input type="test" class="form-control" placeholder="Enter login" name="login">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-            placeholder="Enter email" name="email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword2">Retype Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Retype Password" name="repassword">
-        </div>
-        <button type="submit" class="btn btn-primary">Register</button>
-    </form>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link active" href="/">Home</a>
+                    <a class="nav-item nav-link" href="/register">Register</a>
+                    <a class="nav-item nav-link" href="/login">Login</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+
+    <div class="container">
+        <h1>Register page!</h1>
+        <form method="POST" action="/register">
+            <div class="form-group">
+                <label for="login">Login</label>
+                <input type="test" class="form-control" placeholder="Enter login" name="login">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    placeholder="Enter email" name="email">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                    name="password">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword2">Retype Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Retype Password"
+                    name="repassword">
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
 </body>
+
 </html>
