@@ -1,4 +1,5 @@
 const mysql = require("mysql");
+const { INCORRECT_LOGIN_OR_PASS } = require("../model/config");
 
 // MYSQL Server
 const db = mysql.createConnection({
@@ -21,10 +22,10 @@ CheckUser = (username, callback) => {
     db.query(sql, (err, result) => {
         if (err) {
         } else if (result.length != 0) {
-          console.log("true");
+        //   console.log("true");
           return callback("true");
         } else {
-          console.log("false");
+        //   console.log("false");
           return callback("false");
         }
     });
@@ -63,6 +64,107 @@ CheckUser = (username, callback) => {
 //     });
 // }
 
+CreateUser = (formData, callback) => {
+    const sql = "INSERT INTO `users` SET ? ";
+    const data = {
+      login: formData.username,
+      email: formData.email,
+      password: formData.password
+    }
+    db.query(sql, data, (err, result) => {
+      if (err){
+        throw err;
+      }else{
+        console.log(result);
+        return callback("created");
+      }
+    })
+}
+
+SignIn = (formData, callback) => {
+    let sql = "SELECT login, password FROM users WHERE login LIKE \'" + formData.login + "\'" + "and password LiKE \'" + formData.password + "\'";
+    db.query(sql, (err, result) => {
+        if (err) {
+            throw err;
+            console.log(err);
+        }
+        else if (result.length !=0) {
+            console.log(result);
+            let res = `<h2>Welcome, ${formData.login}</h2>`;  
+            return callback(res);
+        }
+        else{
+            // let res = `<h2>Login or password incorrect.</h2>`;
+            res.send(INCORRECT_LOGIN_OR_PASS);
+            return callback(res);
+        }
+    })
+}
+
+// DeleteUser = (formData, callback) => {
+//     let sql = "SELECT login, password FROM users WHERE login LIKE \'" + formData.login + "\'";
+//     db.query(sql, (err, result) => {
+//         if (err) {
+//             throw err;
+//         }
+//         else if (result.length !=0) {
+//             let sql = "DELETE FROM users WHERE login LIKE \'" + formData.login + "\'";
+//             let res = `<h2>User ${formData.login} delete!</h2>`;  
+//             db.query(sql, (err, result) => {
+//                 if (err) {
+//                     throw err;
+//                     console.log(err);
+//                 }
+//                 else result;
+//             });
+//             return callback(res);
+//         }
+//         else{
+//             let res = `<h2>Login no exist!</h2>`;
+//             return callback(res);
+//         }
+//     })
+// }
+
+DeleteUser = (username, callback) =>{
+    let sql = "DELETE FROM `users` WHERE login=\'" + username + "\'";
+    db.query(sql, (err, result) => {
+      if (err){
+        throw err;
+      } else if (result.length != 0) {
+        return callback("true");
+      } else {
+        return callback("false");
+      }
+    })
+}
+
+UpdateUser = (login, email, password, oldLogin, callback) => {
+    let sql = "UPDATE `users` SET ? WHERE login = '" + oldLogin + "'";
+    let data = {
+        login,
+        email, 
+        password
+    };
+    db.query(sql, data, (err,result) => {
+        if (err){
+            throw err;
+        }
+        else if (result.length != 0){
+            return callback("true");
+            // console.log("Result Ok = ", result);
+        }
+        else{
+            // console.log("Result !Ok = ", result);
+            return callback("false");
+        }
+    })
+}
+
 module.exports = {
-    CheckUser
+    CheckUser,
+    CreateUser,
+    SignIn,
+    DeleteUser,
+    UpdateUser
 };

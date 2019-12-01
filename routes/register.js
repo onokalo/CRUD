@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const { CheckUser } = require("../model/dbManager");
+const { CreateUser } = require("../model/dbManager");
 
 const router = express.Router();
 
@@ -20,16 +21,22 @@ router.post("/register", (req,res) => {
     // res.send(formData);
     // res.send("Ok");
 
-    if (formData.password != formData.repassword){
+    if (formData.password != formData.repassword) {
         res.send("Password not match!");
-    }
-    else{
+      } else {
+       
         CheckUser(formData.username, function(result) {
-            let checkUserResult = result;
-            console.log("Outside", checkUserResult);
-            res.send(`<h1>${checkUserResult}</h1>`);
-          });
-
+          if (result == "false"){
+            CreateUser(formData, function(createResult){
+              console.log("Outside", createResult);
+              res.send(`<h1>${createResult}</h1>`);
+            })
+          }
+          else{
+            res.send("<h1>User exist. </h1>")
+          }
+          
+        });
     }
   
 });
