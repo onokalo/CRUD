@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const { CheckUser } = require("../model/dbManager");
 const { DeleteUser } = require("../model/dbManager");
+const { USER_NOT_FOUND, DELETED_USER } = require("../model/config");
 
 const router = express.Router();
 
@@ -28,17 +29,19 @@ router.post("/delete", (req,res) => {
         if (result === "true"){
             DeleteUser(formData.login, function(result){
                 if (result == "true"){
-                    let msg = "User Deleted!";
-                    res.send(msg);
+                    // let msg = "User Deleted!";
+                    // res.send(msg);
+                    res.send(DELETED_USER);
                 }
                
             });
         }
         else{
-            let msg = "User dous not exist!";
-            res.send(msg);
+            // let msg = "User dous not exist!";
+            // res.send(msg);
+            res.send(USER_NOT_FOUND);
         }
-    })
-})
+    });
+});
 
 module.exports = router;

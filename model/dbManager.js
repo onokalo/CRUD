@@ -1,5 +1,5 @@
 const mysql = require("mysql");
-const { INCORRECT_LOGIN_OR_PASS } = require("../model/config");
+const { INCORRECT_LOGIN_OR_PASS } = require("./config");
 
 // MYSQL Server
 const db = mysql.createConnection({
@@ -75,8 +75,8 @@ CreateUser = (formData, callback) => {
       if (err){
         throw err;
       }else{
-        console.log(result);
-        return callback("created");
+        // console.log(result);
+        return callback(CREATED_USER);
       }
     })
 }
@@ -86,17 +86,17 @@ SignIn = (formData, callback) => {
     db.query(sql, (err, result) => {
         if (err) {
             throw err;
-            console.log(err);
+            // console.log(err);
         }
         else if (result.length !=0) {
-            console.log(result);
+            // console.log(result);
             let res = `<h2>Welcome, ${formData.login}</h2>`;  
             return callback(res);
         }
         else{
             // let res = `<h2>Login or password incorrect.</h2>`;
-            res.send(INCORRECT_LOGIN_OR_PASS);
-            return callback(res);
+            // res.send(INCORRECT_LOGIN_OR_PASS);
+            return callback(INCORRECT_LOGIN_OR_PASS);
         }
     })
 }
